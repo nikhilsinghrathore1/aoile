@@ -24,28 +24,34 @@ export default function PixelLanding() {
   async function getXProfile() {
     console.log("clicked");
     setConnectLoading(true);
-    
+
     try {
       console.log("inside try block");
-      const response = await fetch("https://twitter241.p.rapidapi.com/user?" + new URLSearchParams({
-        username: userName,
-      }), {
-        method: "GET",
-        headers: {
-          "x-rapidapi-key": "a14f36effdmsh8858c00337aaaa1p147670jsnbe5b5ada1624",
-          "x-rapidapi-host": "twitter241.p.rapidapi.com",
-        },
-      });
+      const response = await fetch(
+        "https://twitter241.p.rapidapi.com/user?" +
+          new URLSearchParams({
+            username: userName,
+          }),
+        {
+          method: "GET",
+          headers: {
+            "x-rapidapi-key":
+              "a14f36effdmsh8858c00337aaaa1p147670jsnbe5b5ada1624",
+            "x-rapidapi-host": "twitter241.p.rapidapi.com",
+          },
+        }
+      );
 
       const responseData = await response.json();
-  
+
       const data = {
         userName: userName,
         discription: responseData.result.data.user.result.legacy.description,
-        profileImg: responseData.result.data.user.result.legacy.profile_image_url_https,
+        profileImg:
+          responseData.result.data.user.result.legacy.profile_image_url_https,
         repos: repos,
       };
-  
+
       // ✅ Send to your Next.js API route
       await fetch("/api/updatehtml", {
         method: "POST",
@@ -54,7 +60,7 @@ export default function PixelLanding() {
         },
         body: JSON.stringify(data),
       });
-      
+
       // Redirect to dashboard after successful completion
       window.location.href = "/dashboard";
     } catch (error) {
@@ -62,14 +68,15 @@ export default function PixelLanding() {
       setConnectLoading(false);
     }
   }
-  
 
   async function connectWallet() {
     try {
+      //@ts-ignore
       if (!window.arweaveWallet) {
         alert("No Arconnect detected");
         return;
       }
+      //@ts-ignore
       await window.arweaveWallet.connect(
         ["ACCESS_ADDRESS", "SIGN_TRANSACTION", "ACCESS_TOKENS"],
         {
@@ -82,7 +89,7 @@ export default function PixelLanding() {
           protocol: "https",
         }
       );
-
+      //@ts-ignore
       const walletAddress = await window.arweaveWallet.getActiveAddress();
       setwalletAddress(walletAddress);
     } catch (error) {
@@ -100,38 +107,35 @@ export default function PixelLanding() {
   };
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search)
-    const token = urlParams.get('token')
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
 
     if (!token) {
-      setError('No access token found.')
-      setLoading(false)
-      return
+      setError("No access token found.");
+      setLoading(false);
+      return;
     }
 
-    fetch('https://api.github.com/user/repos', {
+    fetch("https://api.github.com/user/repos", {
       headers: {
         Authorization: `token ${token}`,
       },
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error('Failed to fetch repos')
+          throw new Error("Failed to fetch repos");
         }
-        return res.json()
+        return res.json();
       })
       .then((data) => {
-        setRepos(data.length)
-        setLoading(false)
+        setRepos(data.length);
+        setLoading(false);
       })
       .catch((err) => {
-        setError(err.message)
-        setLoading(false)
-      })
-
-  
-  }, [])
-
+        setError(err.message);
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-900 text-green-400 font-mono overflow-hidden relative">
@@ -188,9 +192,7 @@ export default function PixelLanding() {
                 <div className="flex items-center justify-center space-x-3">
                   <div className="text-xl">{"⚡"}</div>
                   <span className="text-lg tracking-wider">
-                    {repos>2 ?
-                    "CONNECTED" : 
-                    "CONNECT_GITHUB"}
+                    {repos > 2 ? "CONNECTED" : "CONNECT_GITHUB"}
                   </span>
                   <div className="text-xl group-hover:animate-bounce">
                     {">"}
@@ -249,15 +251,23 @@ export default function PixelLanding() {
                   onClick={getXProfile}
                   disabled={connectLoading}
                   className={`text-green-400 transition-all duration-200 ${
-                    connectLoading ? 'opacity-70 cursor-not-allowed' : 'hover:text-green-300 cursor-pointer'
+                    connectLoading
+                      ? "opacity-70 cursor-not-allowed"
+                      : "hover:text-green-300 cursor-pointer"
                   }`}
                 >
                   {connectLoading ? (
                     <div className="flex items-center space-x-2">
                       <div className="flex space-x-1">
                         <div className="w-2 h-2 bg-green-400 animate-bounce"></div>
-                        <div className="w-2 h-2 bg-green-400 animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                        <div className="w-2 h-2 bg-green-400 animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                        <div
+                          className="w-2 h-2 bg-green-400 animate-bounce"
+                          style={{ animationDelay: "0.1s" }}
+                        ></div>
+                        <div
+                          className="w-2 h-2 bg-green-400 animate-bounce"
+                          style={{ animationDelay: "0.2s" }}
+                        ></div>
                       </div>
                       <span className="animate-pulse">{"CONNECTING..."}</span>
                     </div>
