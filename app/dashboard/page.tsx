@@ -10,6 +10,8 @@ import {
   RefreshCw,
   Copy,
   Check,
+  X,
+  User,
 } from "lucide-react";
 
 const LandingPagePreview = () => {
@@ -17,6 +19,9 @@ const LandingPagePreview = () => {
   const [showCode, setShowCode] = useState(false);
   const [copied, setCopied] = useState(false);
   const [htmlContent, setHtmlContent] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [username, setUsername] = useState("");
+  const [inputUsername, setInputUsername] = useState("");
 
   useEffect(() => {
     fetch("/api/gethtml") 
@@ -28,18 +33,38 @@ const LandingPagePreview = () => {
       });
   }, []);
 
+  const handleOpenClick = () => {
+    setShowModal(true);
+  };
+
   const handleDeploy = async () => {
+    if (!inputUsername.trim()) {
+      return;
+    }
+
+    setUsername(inputUsername);
+    setShowModal(false);
+
     const res = await fetch("https://aoile-backend.onrender.com/deploy", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ html: htmlContent }),
+      body: JSON.stringify({ 
+        html: htmlContent,
+        username: inputUsername 
+      }),
     });
 
     const data = await res.json();
     alert("done");
-    console.log(data.message || data); // Adjust depending on the response structure
+    console.log(data.message || data);
+    setInputUsername("");
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
+    setInputUsername("");
   };
 
   const getPreviewStyles = () => {
@@ -75,10 +100,10 @@ const LandingPagePreview = () => {
               </div>
               <div>
                 <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                  Landing Page Preview
+                Ao Profile Preview
                 </h1>
                 <p className="text-sm text-gray-400">
-                  Professional preview tool
+                Start with arweave
                 </p>
               </div>
             </div>
@@ -140,11 +165,11 @@ const LandingPagePreview = () => {
             </button>
 
             <button
-              onClick={handleDeploy}
+              onClick={handleOpenClick}
               className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               <ExternalLink size={16} />
-              <span className="text-sm font-medium">Open</span>
+              <span className="text-sm font-medium">deploy</span>
             </button>
 
             <button className="p-2 bg-gray-700/50 hover:bg-gray-600/50 border border-gray-600/30 text-gray-300 hover:text-white rounded-xl transition-all duration-200">
@@ -193,7 +218,7 @@ const LandingPagePreview = () => {
                 <iframe
                   srcDoc={htmlContent}
                   className="w-full h-full border-0"
-                  title="Landing Page Preview"
+                  title="Ao Profile"
                 />
               </div>
             </div>
@@ -235,6 +260,71 @@ const LandingPagePreview = () => {
           </div>
         )}
       </div>
+
+      {/* Username Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700/50 rounded-2xl shadow-2xl w-full max-w-md transform transition-all duration-300 scale-100">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-6 border-b border-gray-700/50">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center">
+                  <User className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                    Enter Username
+                  </h3>
+                  <p className="text-sm text-gray-400">
+                    Choose a username to deploy your site
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={handleModalClose}
+                className="p-2 text-gray-400 hover:text-white hover:bg-gray-700/50 rounded-lg transition-all duration-200"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-6 space-y-6">
+              <div className="space-y-3">
+                <label className="text-sm font-medium text-gray-300 flex items-center space-x-2">
+                  <User size={16} className="text-blue-400" />
+                  <span>Username</span>
+                </label>
+                <input
+                  type="text"
+                  value={inputUsername}
+                  onChange={(e) => setInputUsername(e.target.value)}
+                  placeholder="Enter your username..."
+                  className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-200"
+                  onKeyPress={(e) => e.key === 'Enter' && handleDeploy()}
+                />
+              </div>
+
+              {/* Modal Actions */}
+              <div className="flex items-center space-x-3 pt-2">
+                <button
+                  onClick={handleModalClose}
+                  className="flex-1 px-4 py-3 bg-gray-700/50 hover:bg-gray-600/50 border border-gray-600/30 text-gray-300 hover:text-white rounded-xl transition-all duration-200 font-medium"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleDeploy}
+                  disabled={!inputUsername.trim()}
+                  className="flex-1 px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 disabled:from-gray-600 disabled:to-gray-700 disabled:cursor-not-allowed text-white rounded-xl transition-all duration-200 font-medium shadow-lg hover:shadow-xl disabled:shadow-none"
+                >
+                  Deploy
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
