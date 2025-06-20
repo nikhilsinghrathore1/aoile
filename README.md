@@ -5,46 +5,44 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4-blue)](https://tailwindcss.com/)
 
 
-A Next.js application for creating and deploying personalized HTML pages.  This project leverages Arweave for permanent storage (though this functionality may not be fully implemented in the current version).
-
+A Next.js application for creating and deploying personalized HTML pages.  This project is designed to leverage Arweave for permanent storage, although this functionality is not yet fully implemented.
 
 ## Description
 
-`aoile` is a Next.js application designed to generate and deploy custom HTML pages based on user-provided profile information.  It offers a streamlined workflow for creating static websites, potentially utilizing Arweave for permanent storage of the generated content.  The current implementation focuses on the frontend and API routes for data handling and deployment.
+`aoile` is a Next.js application designed to generate and deploy custom HTML pages based on user-provided profile information. It offers a streamlined workflow for creating static websites, with the future goal of utilizing Arweave for permanent content storage. The current implementation focuses on the frontend and API routes for data handling and local deployment.
 
 ## Key Features
 
-* **User Profile Creation:**  Allows users to input their profile details (name, bio, image, social links, etc.).
-* **HTML Generation:** Dynamically generates HTML based on the user's profile data using a template.
-* **API-driven Deployment:** Uses API routes to handle profile updates and HTML deployment.  The deployed HTML is currently written to the `/public` directory for local development.
+* **User Profile Creation (Planned):**  Will allow users to input their profile details (name, bio, image, social links, etc.).  Currently, a placeholder data file is used.
+* **Dynamic HTML Generation:** Generates HTML dynamically based on user profile data using a template.
+* **API-driven Deployment:** Uses API routes to handle profile updates and HTML deployment.  Currently, the deployed HTML is written to the `/public` directory for local development.  Arweave integration is planned for future development.
 * **Dark Mode Support:**  The application is styled with Tailwind CSS and includes built-in dark mode functionality.
 * **Responsive Design:** Built with a focus on responsiveness across different screen sizes.
-
 
 ## Technology Stack
 
 * **Frontend:** Next.js 15.3.2, React 19, Tailwind CSS 4, Lucide React
 * **Backend (API):** Next.js API Routes
-* **Styling:** Tailwind CSS, custom CSS variables for themeing
-* **State Management:**  (Implicitly handled within the component structure for now; consider a more robust solution for larger projects)
+* **Styling:** Tailwind CSS, custom CSS variables for theming
+* **State Management:** Implicitly handled within the component structure.  A more robust solution will be considered for future expansion.
 * **Other Dependencies:** `axios`, `clsx`, `tailwind-merge`, `@ardrive/turbo-sdk`, `@codesandbox/sandpack-react`, `@radix-ui/react-slot`, `arweave`
 
 
 ## Installation
 
-1. Clone the repository:
+1. **Clone the repository:**
    ```bash
    git clone https://github.com/nikhilsinghrathore1/aoile.git
    ```
-2. Navigate to the project directory:
+2. **Navigate to the project directory:**
    ```bash
    cd aoile
    ```
-3. Install dependencies:
+3. **Install dependencies:**
    ```bash
    npm install
    ```
-4. Start the development server:
+4. **Start the development server:**
    ```bash
    npm run dev
    ```
@@ -52,16 +50,14 @@ A Next.js application for creating and deploying personalized HTML pages.  This 
 ## Usage
 
 1. **Run the development server:** Follow the installation instructions above.
-2. **Access the application:** Open [http://localhost:3000](http://localhost:3000) in your browser.
-3. **(Future Feature):**  The application will eventually allow users to input their profile information through a form.  Currently, the provided `public/data.js` file serves as a placeholder.
-4. **API Interaction:** The API routes (`/api/updatehtml`, `/api/gethtml`, `/api/deploy`) handle the update and deployment of the HTML.  These routes are currently designed for local file system operations; integration with Arweave would require further development.
-
+2. **Access the application:** Open [http://localhost:3000](http://localhost:3000) in your browser.  Currently, the application displays placeholder content from `public/data.js`.
+3. **API Interaction:** The API routes described below handle profile updates and HTML deployment.  These routes are currently designed for local file system operations.
 
 ## API Documentation
 
-**`/api/updatehtml` (POST):**
+The API uses the following endpoints:
 
-This endpoint updates the HTML file with new profile data.
+**`/api/updatehtml` (POST):** Updates the HTML file with new profile data.
 
 * **Request Body (JSON):**
   ```json
@@ -80,50 +76,32 @@ This endpoint updates the HTML file with new profile data.
   }
   ```
 
-**`/api/gethtml` (GET):**
+**`/api/gethtml` (GET):** Retrieves the generated HTML content.
 
-This endpoint retrieves the generated HTML content.
+* **Response:** Returns the HTML content as `text/html`.
 
-* **Response:** Returns the HTML content as text/html.
+**`/api/deploy` (POST):**  (Not currently implemented in the provided code) This endpoint is intended to handle deployment to a server or Arweave.
 
-**`/api/deploy` (POST):**
+**Note:** The API endpoints currently write to the local file system.  Arweave integration will be implemented in future versions.
 
-This endpoint takes HTML as input and writes it to the `deploy` directory.
-
-* **Request Body (JSON):**
-  ```json
-  {
-    "html": "<your html>"
-  }
-  ```
-
-* **Response (JSON):**
-  ```json
-  {
-    "message": "File written successfully!"
-  }
-  ```
-
-**Note:**  These API endpoints currently write to the local file system.  Integration with Arweave will require additional configuration and code.
+**`/api/github/callback` (GET):** This endpoint handles the OAuth callback from GitHub.  Requires setting the `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` environment variables.
 
 
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request.
 
-
 ## License
 
-(Add license information here if applicable.  No license information was found in the provided files.)
-
+(Add license information here if applicable. No license information was found in the provided files.)
 
 ## Future Work
 
 * **Arweave Integration:** Implement permanent storage of generated HTML on Arweave.
-* **User Interface Enhancements:**  Create a user-friendly interface for profile input and management.
+* **User Interface Enhancements:** Create a user-friendly interface for profile input and management.
 * **Error Handling:** Improve error handling and user feedback.
 * **Testing:** Add unit and integration tests.
 * **Deployment:** Set up a production deployment environment.
 
 
-This README provides a starting point.  As the project evolves, this document will be updated to reflect the changes and added functionalities.
+This README will be updated as the project evolves.
