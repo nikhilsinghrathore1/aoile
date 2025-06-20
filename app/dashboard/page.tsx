@@ -52,7 +52,7 @@ const LandingPagePreview = () => {
       },
       body: JSON.stringify({ 
         html: htmlContent,
-        username: inputUsername 
+        undername: inputUsername 
       }),
     });
 
@@ -65,6 +65,7 @@ const LandingPagePreview = () => {
   const handleModalClose = () => {
     setShowModal(false);
     setInputUsername("");
+    console.log("edited for testing")
   };
 
   const getPreviewStyles = () => {
@@ -273,10 +274,10 @@ const LandingPagePreview = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                    Enter Username
+                    Enter Undername
                   </h3>
                   <p className="text-sm text-gray-400">
-                    Choose a username to deploy your site
+                    Choose a undername to deploy your site
                   </p>
                 </div>
               </div>
@@ -293,13 +294,13 @@ const LandingPagePreview = () => {
               <div className="space-y-3">
                 <label className="text-sm font-medium text-gray-300 flex items-center space-x-2">
                   <User size={16} className="text-blue-400" />
-                  <span>Username</span>
+                  <span>UnderName</span>
                 </label>
                 <input
                   type="text"
                   value={inputUsername}
                   onChange={(e) => setInputUsername(e.target.value)}
-                  placeholder="Enter your username..."
+                  placeholder="Enter your Undername..."
                   className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-200"
                   onKeyPress={(e) => e.key === 'Enter' && handleDeploy()}
                 />
