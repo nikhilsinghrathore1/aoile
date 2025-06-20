@@ -41,6 +41,12 @@ const LandingPagePreview = () => {
     if (!inputUsername.trim()) {
       return;
     }
+    
+  const handlegithubUpdate = async () => {
+    if (!inputUsername.trim()) {
+      return;
+    }
+
 
     setUsername(inputUsername);
     setShowModal(false);
