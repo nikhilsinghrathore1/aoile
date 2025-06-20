@@ -1,21 +1,21 @@
-# aoile: Personalized HTML Page Generator
+# aoile: Your Personalized HTML Page Generator
 
 [![Next.js](https://img.shields.io/badge/Next.js-15.3.2-blue)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4-blue)](https://tailwindcss.com/)
 
 
-`aoile` (pronounced like "oy-lee") is a Next.js application designed to create and deploy personalized HTML pages.  Currently focused on local development and utilizing placeholder data, it's built with the future goal of leveraging Arweave for permanent content storage. This makes it a powerful tool for generating static websites with customizable content, perfect for personal portfolios or simple landing pages.
+`aoile` (pronounced "oy-lee") is a Next.js application designed to create and deploy personalized HTML pages. Currently focused on local development and using placeholder data, it's built for future integration with Arweave for permanent content storage.  This makes it a powerful tool for generating static websites with customizable content, ideal for personal portfolios or simple landing pages.
 
 ## Description
 
-This project streamlines the workflow for creating static HTML pages based on user-provided profile information. The current version prioritizes the frontend and API routes for data handling and local deployment. Future development will integrate Arweave for permanent content hosting, ensuring your generated pages are truly persistent and decentralized.  The application uses a template located at `public/test.html` to generate the HTML pages.
+aoile streamlines the creation of static HTML pages based on user-provided profile information.  The current version prioritizes the frontend and API routes for data handling and local deployment.  Future development will integrate Arweave for persistent, decentralized content hosting. The application uses a template located at `public/test.html` to generate the HTML pages.  This template uses a placeholder `{{PROFILE_DATA}}` which is replaced with the JSON representation of the user's profile.
 
 ## Key Features
 
 * **Dynamic HTML Generation:** Generates HTML pages dynamically based on user-provided data using a template (`public/test.html`).
 * **API-driven Data Handling:** Uses Next.js API routes to manage profile updates and HTML generation.
-* **Local File System Deployment:** Currently, generated HTML is written to the `/public` directory for local development. This will be replaced with Arweave deployment in future versions.
+* **Local File System Deployment:** Currently, generated HTML is written to the `/public` directory for local development.  This will be replaced with Arweave deployment in future versions.
 * **GitHub OAuth Integration (Planned):** Will allow users to authenticate with GitHub to simplify profile data input (requires setting environment variables).
 * **Dark Mode Support:** Stylish and responsive design thanks to Tailwind CSS, with built-in dark mode.
 * **Responsive Design:** Built with responsiveness in mind for various screen sizes.
@@ -55,8 +55,8 @@ This project streamlines the workflow for creating static HTML pages based on us
 ## Usage
 
 1. **Run the development server:** Follow the installation instructions above.
-2. **Access the application:** Open [http://localhost:3000](http://localhost:3000) in your browser. The application currently displays placeholder content from `public/data.js`. You'll need to interact with the API to generate a custom page.
-3. **Update Profile (API):** Use a tool like Postman or curl to send a POST request to `/api/updatehtml` with your profile data. See the API documentation below for details.  Example using `curl`:
+2. **Access the application:** Open [http://localhost:3000](http://localhost:3000) in your browser. The application currently displays placeholder content from `public/data.js`.  You'll need to interact with the API to generate a custom page.
+3. **Update Profile (API):** Use a tool like Postman or `curl` to send a POST request to `/api/updatehtml` with your profile data. See the API documentation below for details.  Example using `curl`:
 
    ```bash
    curl -X POST -H "Content-Type: application/json" -d '{"userName": "Your Name", "profileImg": "Your Profile Image URL", "discription": "Your Description", "repos": "10"}' http://localhost:3000/api/updatehtml
@@ -71,9 +71,9 @@ This project streamlines the workflow for creating static HTML pages based on us
 
 ## API Documentation
 
-The API utilizes the following endpoints:
+The API uses the following endpoints:
 
-**`/api/updatehtml` (POST):** Updates the `myfile.html` file with new profile data. This uses `public/test.html` as a template and replaces the `{{PROFILE_DATA}}` placeholder.
+**`/api/updatehtml` (POST):** Updates the `myfile.html` file with new profile data.  This uses `public/test.html` as a template and replaces the `{{PROFILE_DATA}}` placeholder.
 
 * **Request Body (JSON):**
   ```json
@@ -114,7 +114,7 @@ Contributions are welcome! Please follow these guidelines:
 
 ## License
 
-[Specify a license here, e.g., MIT License](https://opensource.org/licenses/MIT)  (Add a license file to the repository for this section to be complete)
+[Specify a license here, e.g., MIT License](https://opensource.org/licenses/MIT) (Add a LICENSE file to the repository for this section to be complete)
 
 
 ## Future Work
