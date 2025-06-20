@@ -5,21 +5,20 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4-blue)](https://tailwindcss.com/)
 
 
-`aoile` is a Next.js application designed to create and deploy personalized HTML pages.  While currently focused on local development and utilizing placeholder data, it's built with the future goal of leveraging Arweave for permanent content storage.  This makes it a powerful tool for generating static websites with customizable content.
+`aoile` (pronounced like "oy-lee") is a Next.js application designed to create and deploy personalized HTML pages. Currently focused on local development and utilizing placeholder data, it's built with the future goal of leveraging Arweave for permanent content storage. This makes it a powerful tool for generating static websites with customizable content, perfect for personal portfolios or simple landing pages.
 
 ## Description
 
-This project provides a streamlined workflow for creating static HTML pages based on user-provided profile information. The current version emphasizes the frontend and API routes for data handling and local deployment. Future development will integrate Arweave for permanent content hosting.
-
+This project streamlines the workflow for creating static HTML pages based on user-provided profile information. The current version prioritizes the frontend and API routes for data handling and local deployment. Future development will integrate Arweave for permanent content hosting, ensuring your generated pages are truly persistent and decentralized.
 
 ## Key Features
 
-* **Dynamic HTML Generation:** Generates HTML pages dynamically based on user-provided data using a template.
-* **API-driven Data Handling:**  Uses Next.js API routes to manage profile updates and HTML generation.
-* **Local File System Deployment:** Currently, generated HTML is written to the `/public` directory for local development.
-* **GitHub OAuth Integration:** Allows users to authenticate with GitHub to simplify profile data input.  (Requires setting environment variables).
-* **Dark Mode Support:**  Stylish and responsive design thanks to Tailwind CSS, with built-in dark mode.
-* **Responsive Design:**  Built with responsiveness in mind for various screen sizes.
+* **Dynamic HTML Generation:** Generates HTML pages dynamically based on user-provided data using a template.  The template is currently located at `public/test.html`.
+* **API-driven Data Handling:** Uses Next.js API routes to manage profile updates and HTML generation.
+* **Local File System Deployment:** Currently, generated HTML is written to the `/public` directory for local development.  This will be replaced with Arweave deployment in future versions.
+* **GitHub OAuth Integration (Planned):**  Will allow users to authenticate with GitHub to simplify profile data input (requires setting environment variables).
+* **Dark Mode Support:** Stylish and responsive design thanks to Tailwind CSS, with built-in dark mode.
+* **Responsive Design:** Built with responsiveness in mind for various screen sizes.
 
 
 ## Technology Stack
@@ -27,7 +26,7 @@ This project provides a streamlined workflow for creating static HTML pages base
 * **Frontend Framework:** Next.js 15.3.2, React 19
 * **Styling:** Tailwind CSS 4, Lucide React Icons
 * **Backend (API):** Next.js API Routes
-* **State Management:**  Implicitly handled within components (future improvements planned).
+* **State Management:** Implicitly handled within components (future improvements planned).
 * **Data Handling:** `axios`
 * **Utility Libraries:** `clsx`, `tailwind-merge`, `dedent`
 * **Arweave Integration (Planned):** `arweave`, `@ardrive/turbo-sdk`
@@ -56,14 +55,16 @@ This project provides a streamlined workflow for creating static HTML pages base
 ## Usage
 
 1. **Run the development server:** Follow the installation instructions above.
-2. **Access the application:** Open [http://localhost:3000](http://localhost:3000) in your browser. The application currently displays placeholder content from `public/data.js`.
-3. **API Interaction:** The API routes described below handle profile updates and HTML generation.  These write to the local file system for now.
+2. **Access the application:** Open [http://localhost:3000](http://localhost:3000) in your browser.  The application currently displays placeholder content from `public/data.js`.  You'll need to interact with the API to generate a custom page.
+3. **Update Profile (API):** Use a tool like Postman or curl to send a POST request to `/api/updatehtml` with your profile data.  See the API documentation below for details.
+4. **Retrieve Generated HTML (API):** After updating the profile, make a GET request to `/api/gethtml` to retrieve the generated HTML.
+
 
 ## API Documentation
 
 The API utilizes the following endpoints:
 
-**`/api/updatehtml` (POST):** Updates the HTML file with new profile data.
+**`/api/updatehtml` (POST):** Updates the HTML file with new profile data.  This uses `public/test.html` as a template and replaces the `{{PROFILE_DATA}}` placeholder.
 
 * **Request Body (JSON):**
   ```json
@@ -82,13 +83,13 @@ The API utilizes the following endpoints:
   }
   ```
 
-**`/api/gethtml` (GET):** Retrieves the generated HTML content.
+**`/api/gethtml` (GET):** Retrieves the generated HTML content from `public/myfile.html`.
 
 * **Response:** Returns the HTML content as `text/html`.
 
-**`/api/deploy` (POST):**  (Not yet implemented) This endpoint will handle deployment to Arweave in future versions.
+**`/api/deploy` (POST):** (Not yet implemented) This endpoint will handle deployment to Arweave in future versions.
 
-**`/api/github/callback` (GET):** Handles the OAuth callback from GitHub.  Requires setting the `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` environment variables.
+**`/api/github/callback` (GET):** (Not yet implemented) Handles the OAuth callback from GitHub. Requires setting the `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` environment variables.
 
 
 ## Contributing
@@ -104,7 +105,7 @@ Contributions are welcome! Please follow these guidelines:
 
 ## License
 
-(Add license information here if applicable.  No license was found in the provided files. Consider adding an open-source license like MIT or Apache 2.0.)
+[Specify a license here, e.g., MIT License](https://opensource.org/licenses/MIT)
 
 
 ## Future Work
