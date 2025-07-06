@@ -51,7 +51,9 @@ const LandingPagePreview = () => {
     setUsername(inputUsername);
     setShowModal(false);
     console.log("doing second edit")
-    console.log("doing second edit")
+     console.log("doing second edit")
+     console.log("doing second edit")
+
     console.log("doing second edit")
 
     const res = await fetch("https://aoile-backend.onrender.com/deploy", {
