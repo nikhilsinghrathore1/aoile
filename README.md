@@ -1,9 +1,3 @@
-# aoile: Your Personalized HTML Page Generator
-
-[![Next.js](https://img.shields.io/badge/Next.js-15.3.2-blue)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4-blue)](https://tailwindcss.com/)
-
 
 `aoile` (pronounced "oy-lee") is a Next.js application designed to create and deploy personalized HTML pages. Currently focused on local development and using placeholder data, it's built for future integration with Arweave for permanent content storage.  This makes it a powerful tool for generating static websites with customizable content, ideal for personal portfolios or simple landing pages.
 
